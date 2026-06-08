@@ -1,6 +1,7 @@
 
 import streamlit as st
 import random
+import time
 
 st.set_page_config(
     page_title="EcoQuest RPG Edition",
@@ -15,6 +16,7 @@ st.set_page_config(
 jobs = {
 
     "meat": {
+        "icon":"⚔️",
         "job":"⚔️ 버서커",
         "title":"붉은 초원의 전사",
         "quote":"고기를 포기할 필요는 없다. 더 현명하게 먹으면 된다.",
@@ -45,6 +47,7 @@ jobs = {
     },
 
     "instant": {
+        "icon":"🏹",
         "job":"🏹 레인저",
         "title":"질주의 추적자",
         "quote":"빠른 선택도 좋은 방향으로 바꿀 수 있다.",
@@ -75,6 +78,7 @@ jobs = {
     },
 
     "vegetable": {
+        "icon":"🌿",
         "job":"🌿 드루이드",
         "title":"숲의 수호자",
         "quote":"작은 선택이 숲을 지키는 힘이 된다.",
@@ -105,6 +109,7 @@ jobs = {
     },
 
     "dessert": {
+        "icon":"✨",
         "job":"✨ 연금술사",
         "title":"달콤한 연구가",
         "quote":"즐거움과 건강은 함께 갈 수 있다.",
@@ -227,6 +232,41 @@ def get_tree_effect(saved_carbon):
 
     return trees
 
+def travel_animation(icon, message):
+
+    area = st.empty()
+
+    for i in range(11):
+
+        road = (
+            "⬜" * i
+            + icon
+            + "⬜" * (10 - i)
+        )
+
+        area.markdown(
+            f"""
+### {message}
+
+{road}
+"""
+        )
+
+        time.sleep(0.12)
+
+    area.markdown(
+        f"""
+### {message}
+
+# ❗
+
+# {icon}
+"""
+    )
+
+    time.sleep(0.8)
+
+    area.empty()
 
 # =========================
 # 세션 상태
@@ -386,7 +426,12 @@ if st.session_state.step > 0:
 # =========================
 
     if st.session_state.step == 1:
-
+        
+        travel_animation(
+            result["icon"],
+            "🌲 숲길 탐험 중..."
+        )
+        
         st.header("🎭 STEP 1 : 직업 각성")
 
         st.success(result["job"])
@@ -405,7 +450,12 @@ if st.session_state.step > 0:
 # =========================
 
     elif st.session_state.step == 2:
-
+       
+        travel_animation(
+            result["icon"],
+            "⛰ 산길 탐험 중..."
+        )
+        
         st.header("📊 STEP 2 : 능력치 공개")
 
         st.write(
@@ -453,7 +503,12 @@ if st.session_state.step > 0:
 # =========================
 
     elif st.session_state.step == 3:
-
+       
+        travel_animation(
+            result["icon"],
+            "🏰 환경의 성으로 이동 중..."
+        )
+        
         st.header("🏆 STEP 3 : 최종 결과")
 
         st.subheader(
@@ -542,7 +597,19 @@ if st.session_state.step > 0:
         st.success(
             f"총점 : {eco_score}"
         )
+        
+        st.markdown(
+        f"""
+        # ❗
 
+        ## {result["icon"]}
+
+        최종 평가 확인 중...
+        """
+        )
+
+        time.sleep(1.2)
+        
         st.header(rank)
 
         st.divider()
