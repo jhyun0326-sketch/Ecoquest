@@ -491,74 +491,42 @@ def travel_animation(sprite, message):
 
     for i in range(11):
 
-        left_space = i * 8
+        area.empty()
 
-        area.markdown(
-            f"""
-            <div style="text-align:center;">
-                <h3>{message}</h3>
+        with area.container():
 
-                <div style="
-                    width:100%;
-                    height:140px;
-                    position:relative;
-                    border-bottom:3px solid #4CAF50;
-                ">
+            st.markdown(f"### {message}")
 
-                    <img src="{sprite}"
-                    style="
-                        position:absolute;
-                        left:{left_space}%;
-                        top:20px;
-                        width:80px;
-                    ">
+            cols = st.columns(11)
 
-                </div>
-            </div>
-            """,
+            for j in range(11):
+
+                with cols[j]:
+
+                    if j == i:
+                        st.image(sprite, width=80)
+                    else:
+                        st.write("")
+
+        time.sleep(0.15)
+
+    area.empty()
+
+    with area.container():
+
+        st.markdown(f"### {message}")
+
+        st.markdown(
+            "<h1 style='text-align:center;'>❗</h1>",
             unsafe_allow_html=True
         )
 
-        time.sleep(0.12)
-
-    area.markdown(
-        f"""
-        <div style="text-align:center;">
-            <h3>{message}</h3>
-
-            <div style="
-                width:100%;
-                height:180px;
-                position:relative;
-                border-bottom:3px solid #4CAF50;
-            ">
-
-                <div style="
-                    position:absolute;
-                    left:80%;
-                    top:-10px;
-                    font-size:40px;
-                ">
-                ❗
-                </div>
-
-                <img src="{sprite}"
-                style="
-                    position:absolute;
-                    left:80%;
-                    top:40px;
-                    width:100px;
-                ">
-
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+        st.image(sprite, width=120)
 
     time.sleep(0.8)
 
     area.empty()
+
 
 
 # =========================
@@ -577,10 +545,6 @@ if "player" not in st.session_state:
 # =========================
 
 st.title("🌱 EcoQuest RPG Edition")
-st.image(
-    "images/ranger_pixel.png",
-    width=120
-)
 st.caption("모험형 친환경 식습관 게임")
 
 with st.form("eco_form"):
