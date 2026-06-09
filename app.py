@@ -690,7 +690,7 @@ if st.session_state.step > 0:
 # STEP 1
 # =========================
 
-    if st.session_state.step == 1:
+if st.session_state.step == 1:
         
         travel_animation(
             result["sprite"],
@@ -717,8 +717,7 @@ if st.session_state.step > 0:
 # =========================
 # STEP 2
 # =========================
-
-    elif st.session_state.step == 2:
+elif st.session_state.step == 2:
 
          if "step2_intro" not in st.session_state:
        
