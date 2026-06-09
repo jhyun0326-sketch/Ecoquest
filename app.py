@@ -720,16 +720,16 @@ if st.session_state.step > 0:
 
     elif st.session_state.step == 2:
 
-     if "step2_intro" not in st.session_state:
+         if "step2_intro" not in st.session_state:
        
-        travel_animation(
-            result["sprite"],
-            "🏕️ 캠프 도착..."
-        )
+            travel_animation(
+                result["sprite"],
+                "🏕️ 캠프 도착..."
+            )
 
-        st.session_state.step2_intro = True
+            st.session_state.step2_intro = True
 
-        st.rerun()
+            st.rerun()
 
         st.header("📊 STEP 2 : 능력치 공개")
 
@@ -777,18 +777,18 @@ if st.session_state.step > 0:
 # STEP 3
 # =========================
 
- elif st.session_state.step == 3:
+elif st.session_state.step == 3:
 
-    if "step3_intro" not in st.session_state:
+            if "step3_intro" not in st.session_state:
        
-        travel_animation(
-            result["sprite"],
-            "🏆 결과 공개..."
-        )
+                travel_animation(
+                    result["sprite"],
+                    "🏆 결과 공개..."
+                )
 
-        st.session_state.step3_intro = True
+                st.session_state.step3_intro = True
 
-        st.rerun()
+                st.rerun()
         
         st.header("🏆 STEP 3 : 최종 결과")
 
