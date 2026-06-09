@@ -902,25 +902,41 @@ elif st.session_state.step == 3:
     st.subheader("🥗 추천 식단")
 
     for meal in safe_meals:
+
         st.success(meal)
 
-    st.divider()
+        if meal in meal_info:
 
-    st.subheader("🍳 추천 식단 레시피")
+            info = meal_info[meal]
 
-    for meal in safe_meals:
+            c1, c2, c3 = st.columns(3)
 
-        with st.expander(f"{meal} 레시피 보기"):
+            with c1:
+                st.metric(
+                    "칼로리",
+                    f"{info['kcal']} kcal"
+                )
+            with c2:
+                st.metric(
+                    "단백질",
+                    f"{info['protein']} g"
+                )
+
+            with c3:
+                st.metric(
+                    "탄소배출",
+                    f"{info['carbon']} kgCO₂e"
+                )
+
+        with st.expander(
+            f"🍳 {meal} 레시피 보기"
+        ):
 
             if meal in recipes:
 
-                st.write("재료")
-                for item in recipes[meal]["ingredients"]:
-                    st.write(f"• {item}")
-
-                st.write("조리 방법")
-                for step in recipes[meal]["steps"]:
-                    st.write(f"• {step}")
+                st.text(
+                    recipes[meal]
+                )
 
     st.subheader("🎯 오늘의 미션")
 
