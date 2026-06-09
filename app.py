@@ -16,8 +16,8 @@ st.set_page_config(
 jobs = {
 
     "meat": {
-        "icon":"⚔️",
         "job":"⚔️ 탄소 절감 버서커",
+        "sprite":"images/berserker_pixel.png",
         "title":"붉은 초원의 전사",
         "quote":"고기를 포기할 필요는 없다. 더 현명하게 먹으면 된다.",
 
@@ -47,7 +47,7 @@ jobs = {
     },
 
     "instant": {
-        "icon":"🏹",
+        "sprite":"images/ranger_pixel.png",
         "job":"🏹 제로웨이스트 레인저",
         "title":"질주의 추적자",
         "quote":"빠른 선택도 좋은 방향으로 바꿀 수 있다.",
@@ -78,7 +78,7 @@ jobs = {
     },
 
     "vegetable": {
-        "icon":"🌿",
+        "sprite":"images/druid_pixel.png",
         "job":"🌿 숲을 지키는 드루이드",
         "title":"숲의 수호자",
         "quote":"작은 선택이 숲을 지키는 힘이 된다.",
@@ -109,7 +109,7 @@ jobs = {
     },
 
     "dessert": {
-        "icon":"✨",
+        "sprite":"images/alchemist_pixel.png",
         "job":"✨ 친환경 연금술사",
         "title":"달콤한 연구가",
         "quote":"즐거움과 건강은 함께 갈 수 있다.",
@@ -485,41 +485,81 @@ def get_tree_effect(saved_carbon):
 
     return trees
 
-def travel_animation(icon, message):
+def travel_animation(sprite, message):
 
     area = st.empty()
 
     for i in range(11):
 
-        road = (
-            "⬜" * i
-            + icon
-            + "⬜" * (10 - i)
-        )
+        left_space = i * 8
 
         area.markdown(
             f"""
-### {message}
+            <div style="text-align:center;">
+                <h3>{message}</h3>
 
-{road}
-"""
+                <div style="
+                    width:100%;
+                    height:140px;
+                    position:relative;
+                    border-bottom:3px solid #4CAF50;
+                ">
+
+                    <img src="{sprite}"
+                    style="
+                        position:absolute;
+                        left:{left_space}%;
+                        top:20px;
+                        width:80px;
+                    ">
+
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
         time.sleep(0.12)
 
     area.markdown(
         f"""
-### {message}
+        <div style="text-align:center;">
+            <h3>{message}</h3>
 
-# ❗
+            <div style="
+                width:100%;
+                height:180px;
+                position:relative;
+                border-bottom:3px solid #4CAF50;
+            ">
 
-# {icon}
-"""
+                <div style="
+                    position:absolute;
+                    left:80%;
+                    top:-10px;
+                    font-size:40px;
+                ">
+                ❗
+                </div>
+
+                <img src="{sprite}"
+                style="
+                    position:absolute;
+                    left:80%;
+                    top:40px;
+                    width:100px;
+                ">
+
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
     time.sleep(0.8)
 
     area.empty()
+
 
 # =========================
 # 세션 상태
@@ -681,7 +721,7 @@ if st.session_state.step > 0:
     if st.session_state.step == 1:
         
         travel_animation(
-            result["icon"],
+            result["sprite"],
             "🌲 숲길 탐험 중..."
         )
         
@@ -705,7 +745,7 @@ if st.session_state.step > 0:
     elif st.session_state.step == 2:
        
         travel_animation(
-            result["icon"],
+            result["sprite"],
             "⛰ 산길 탐험 중..."
         )
         
@@ -758,7 +798,7 @@ if st.session_state.step > 0:
     elif st.session_state.step == 3:
        
         travel_animation(
-            result["icon"],
+            result["sprite"],
             "🏰 환경의 성으로 이동 중..."
         )
         
