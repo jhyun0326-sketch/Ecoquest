@@ -721,7 +721,7 @@ if st.session_state.step == 1:
     )
 
     st.info(
-        result["description"]
+        result["quote"]
     )
 
     st.divider()
