@@ -590,6 +590,10 @@ with st.form("eco_form"):
 
 if start:
 
+    st.session_state.pop("step1_intro", None)
+    st.session_state.pop("step2_intro", None)
+    st.session_state.pop("step3_intro", None)
+
     profile_map = {
         "육류 위주":"meat",
         "간편식 위주":"instant",
@@ -692,6 +696,10 @@ if st.session_state.step > 0:
             result["sprite"],
             "🌲 숲길 탐험 중..."
         )
+
+        st.session_state.step1_intro = True
+
+        st.rerun()
         
         st.header("🎭 STEP 1 : 직업 각성")
 
@@ -711,12 +719,18 @@ if st.session_state.step > 0:
 # =========================
 
     elif st.session_state.step == 2:
+
+        if "step2_intro" not in st.session_state:
        
         travel_animation(
             result["sprite"],
-            "⛰ 산길 탐험 중..."
+            "🏕️ 캠프 도착..."
         )
-        
+
+        st.session_state.step2_intro = True
+
+        st.rerun()
+
         st.header("📊 STEP 2 : 능력치 공개")
 
         st.write(
@@ -764,11 +778,17 @@ if st.session_state.step > 0:
 # =========================
 
     elif st.session_state.step == 3:
+
+        if "step3_intro" not in st.session_state:
        
         travel_animation(
             result["sprite"],
-            "🏰 환경의 성으로 이동 중..."
+            "🏆 결과 공개..."
         )
+
+        st.session_state.step3_intro = True
+
+        st.rerun()
         
         st.header("🏆 STEP 3 : 최종 결과")
 
