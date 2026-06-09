@@ -486,6 +486,9 @@ def get_tree_effect(saved_carbon):
     return trees
 
 def travel_animation(sprite, message):
+ animation_box = st.container()
+
+ with animation_box:
 
     area = st.empty()
 
