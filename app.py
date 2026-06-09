@@ -577,6 +577,10 @@ if "player" not in st.session_state:
 # =========================
 
 st.title("🌱 EcoQuest RPG Edition")
+st.image(
+    "images/ranger_pixel.png",
+    width=120
+)
 st.caption("모험형 친환경 식습관 게임")
 
 with st.form("eco_form"):
