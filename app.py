@@ -906,12 +906,50 @@ elif st.session_state.step == 3:
 
     st.divider()
 
+    st.subheader("🍳 추천 식단 레시피")
+
+    for meal in safe_meals:
+
+        with st.expander(f"{meal} 레시피 보기"):
+
+            if meal in recipes:
+
+                st.write("재료")
+                for item in recipes[meal]["ingredients"]:
+                    st.write(f"• {item}")
+
+                st.write("조리 방법")
+                for step in recipes[meal]["steps"]:
+                    st.write(f"• {step}")
+
     st.subheader("🎯 오늘의 미션")
 
     for m in random.sample(missions, 3):
         st.checkbox(m)
 
     st.divider()
+
+    st.subheader("💪 건강 정보")
+
+    if bmi < 18.5:
+        st.warning(
+            "저체중 상태입니다. 단백질과 칼로리 섭취를 늘려보세요."
+        )
+
+    elif bmi < 25:
+        st.success(
+            "정상 범위입니다. 현재 식습관을 유지하세요."
+        )
+
+    elif bmi < 30:
+        st.warning(
+           "과체중 단계입니다. 규칙적인 운동을 추천합니다."
+        )
+
+    else:
+        st.error(
+            "비만 단계입니다. 식습관 개선이 필요합니다."
+        )
 
     st.subheader("📄 결과 요약")
 
