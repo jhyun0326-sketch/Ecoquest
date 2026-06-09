@@ -689,29 +689,68 @@ if st.session_state.step > 0:
     )# =========================
 # STEP 1
 # =========================
+# =========================
+# STEP 1
+# =========================
 
 if st.session_state.step == 1:
-        
+
+    if "step1_intro" not in st.session_state:
+
         travel_animation(
             result["sprite"],
             "🌲 숲길 탐험 중..."
         )
 
         st.session_state.step1_intro = True
-
         st.rerun()
-        
-        st.header("🎭 STEP 1 : 직업 각성")
 
-        st.success(result["job"])
+    st.header("🛡️ STEP 1 : 직업 각성")
 
-        st.subheader(result["title"])
+    st.image(
+        result["sprite"],
+        width=180
+    )
 
-        st.info(result["quote"])
+    st.success(
+        result["job"]
+    )
 
-        if st.button("다음 ▶"):
-            st.session_state.step = 2
-            st.rerun()
+    st.subheader(
+        result["title"]
+    )
+
+    st.info(
+        result["description"]
+    )
+
+    st.divider()
+
+    st.subheader("📋 기본 정보")
+
+    st.write(
+        f"이름 : {player['name']}"
+    )
+
+    st.write(
+        f"나이 : {player['age']}세"
+    )
+
+    st.write(
+        f"키 : {player['height']}cm"
+    )
+
+    st.write(
+        f"체중 : {player['weight']}kg"
+    )
+
+    st.write(
+        f"식습관 : {player['eating']}"
+    )
+
+    if st.button("다음 ▶"):
+        st.session_state.step = 2
+        st.rerun()
 
 
 # =========================
