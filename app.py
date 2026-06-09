@@ -779,7 +779,7 @@ if st.session_state.step > 0:
 
     elif st.session_state.step == 3:
 
-        if "step3_intro" not in st.session_state:
+    if "step3_intro" not in st.session_state:
        
         travel_animation(
             result["sprite"],
