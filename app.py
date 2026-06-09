@@ -777,7 +777,7 @@ if st.session_state.step > 0:
 # STEP 3
 # =========================
 
-    elif st.session_state.step == 3:
+ elif st.session_state.step == 3:
 
     if "step3_intro" not in st.session_state:
        
