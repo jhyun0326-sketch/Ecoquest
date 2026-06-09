@@ -719,57 +719,56 @@ if st.session_state.step == 1:
 # =========================
 elif st.session_state.step == 2:
 
-         if "step2_intro" not in st.session_state:
-       
-            travel_animation(
-                result["sprite"],
-                "🏕️ 캠프 도착..."
-            )
+    if "step2_intro" not in st.session_state:
 
-            st.session_state.step2_intro = True
-
-            st.rerun()
-
-        st.header("📊 STEP 2 : 능력치 공개")
-
-        st.write(
-            f"⚔️ 공격력 {result['attack']}/100"
-        )
-        st.progress(
-            result["attack"]
+        travel_animation(
+            result["sprite"],
+            "🏕️ 캠프 도착..."
         )
 
-        st.write(
-            f"❤️ 회복력 {result['recovery']}/100"
+        st.session_state.step2_intro = True
+        st.rerun()
+
+    st.header("📊 STEP 2 : 능력치 공개")
+
+    st.write(
+        f"⚔️ 공격력 {result['attack']}/100"
+    )
+    st.progress(
+        result["attack"]
+    )
+
+    st.write(
+        f"❤️ 회복력 {result['recovery']}/100"
+    )
+    st.progress(
+        result["recovery"]
+    )
+
+    st.write(
+        f"🌍 친환경력 {result['eco_power']}/100"
+    )
+    st.progress(
+        result["eco_power"]
+    )
+
+    c1, c2 = st.columns(2)
+
+    with c1:
+        st.metric(
+            "BMI",
+            round(bmi, 1)
         )
-        st.progress(
-            result["recovery"]
+
+    with c2:
+        st.metric(
+            "비만도",
+            bmi_text(bmi)
         )
 
-        st.write(
-            f"🌍 친환경력 {result['eco_power']}/100"
-        )
-        st.progress(
-            result["eco_power"]
-        )
-
-        c1, c2 = st.columns(2)
-
-        with c1:
-            st.metric(
-                "BMI",
-                round(bmi, 1)
-            )
-
-        with c2:
-            st.metric(
-                "비만도",
-                bmi_text(bmi)
-            )
-
-        if st.button("다음 ▶▶"):
-            st.session_state.step = 3
-            st.rerun()
+    if st.button("다음 ▶▶"):
+        st.session_state.step = 3
+        st.rerun()
 
 
 # =========================
