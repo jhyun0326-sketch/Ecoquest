@@ -873,7 +873,7 @@ elif st.session_state.step == 3:
     )
 
     st.write(
-        result["description"]
+        result["quote"]
     )
 
     st.divider()
