@@ -775,254 +775,115 @@ elif st.session_state.step == 2:
 # STEP 3
 # =========================
 
+# =========================
+# STEP 3
+# =========================
+
 elif st.session_state.step == 3:
 
-            if "step3_intro" not in st.session_state:
-       
-                travel_animation(
-                    result["sprite"],
-                    "🏆 결과 공개..."
-                )
+    if "step3_intro" not in st.session_state:
 
-                st.session_state.step3_intro = True
-
-                st.rerun()
-        
-        st.header("🏆 STEP 3 : 최종 결과")
-
-        st.subheader(
-            "🔍 식단 생성 과정"
+        travel_animation(
+            result["sprite"],
+            "🏆 결과 공개..."
         )
 
+        st.session_state.step3_intro = True
+        st.rerun()
+
+    st.header("🏆 STEP 3 : 최종 결과")
+
+    st.subheader("🔍 식단 생성 과정")
+
+    st.write(
+        f"① 식습관 분석 → {player['eating']}"
+    )
+
+    st.write(
+        f"② BMI 분석 → {round(bmi,1)} ({bmi_text(bmi)})"
+    )
+
+    if player["allergy"]:
         st.write(
-            f"① 식습관 분석 → {player['eating']}"
+            f"③ 알레르기 검사 → {player['allergy']}"
         )
-
+    else:
         st.write(
-            f"② BMI 분석 → {round(bmi,1)} ({bmi_text(bmi)})"
+            "③ 알레르기 검사 → 없음"
         )
 
-        if player["allergy"]:
-            st.write(
-                f"③ 알레르기 검사 → {player['allergy']}"
-            )
-        else:
-            st.write(
-                "③ 알레르기 검사 → 없음"
-            )
+    st.write(
+        f"④ 탄소 절감 분석 → {carbon_percent}% 감소"
+    )
 
-        st.write(
-            f"④ 탄소 절감 분석 → {carbon_percent}% 감소"
-        )
+    st.write(
+        "⑤ 최종 식단 선정 완료"
+    )
 
-        st.write(
-            "⑤ 최종 식단 선정 완료"
-        )
+    st.divider()
 
-        st.divider()
+    st.subheader("🎭 나의 직업")
 
-        st.subheader("🥗 맞춤 추천 식단")
+    st.image(
+        result["sprite"],
+        width=180
+    )
 
-        if safe_meals:
+    st.success(
+        result["job"]
+    )
 
-            for meal in safe_meals:
+    st.write(
+        result["description"]
+    )
 
-                st.success(meal)
+    st.divider()
 
-                info = meal_info.get(meal)
+    st.subheader("🌳 탄소 절감 효과")
 
-                if info:
+    st.metric(
+        "탄소 절감률",
+        f"{carbon_percent}%"
+    )
 
-                    col1, col2, col3 = st.columns(3)
+    st.metric(
+        "심은 나무 수",
+        f"{trees}그루"
+    )
 
-                    col1.metric(
-                        "칼로리",
-                        f"{info['kcal']} kcal"
-                    )
+    st.progress(
+        min(100, trees * 5)
+    )
 
-                    col2.metric(
-                        "단백질",
-                        f"{info['protein']} g"
-                    )
+    st.divider()
 
-                    col3.metric(
-                        "탄소배출량",
-                        f"{info['carbon']} kgCO₂e"
-                    )
+    st.subheader("🥗 추천 식단")
 
-                with st.expander("📖 레시피 보기"):
+    for meal in safe_meals:
+        st.success(meal)
 
-                    st.write(
-                        recipes.get(
-                            meal,
-                            "레시피 준비 중"
-                        )
-                    )
+    st.divider()
 
-        else:
-            st.warning(
-                "알레르기 조건으로 추천 가능한 식단이 없습니다."
-            )
+    st.subheader("🎯 오늘의 미션")
 
-        
-                    
-                    
-        st.subheader("🏥 건강 정보")
+    for m in random.sample(missions, 3):
+        st.checkbox(m)
 
-        if bmi < 18.5:
-            st.info(
-                "체중이 다소 낮은 편입니다. 단백질과 에너지를 충분히 섭취하세요."
-            )
+    st.divider()
 
-        elif bmi < 25:
-            st.success(
-                "정상 체중 범위입니다. 현재 식습관을 유지하세요."
-            )
+    st.subheader("📄 결과 요약")
 
-        elif bmi < 30:
-            st.warning(
-                "과체중 범위입니다. 규칙적인 운동을 권장합니다."
-            )
-
-        else:
-            st.error(
-                "비만 범위입니다. 식습관 개선과 운동이 필요합니다."
-            )            
-
-        st.divider()
-
-        st.subheader(
-            "🌳 환경 효과"
-        )
-
-        st.metric(
-            "탄소 절감률",
-            f"{carbon_percent}%"
-        )
-
-        st.success(
-            f"🌳 약 {trees}그루의 나무를 심은 효과"
-        )
-
-        st.info(
-            f"🚗 자동차 약 {round(carbon_saved * 100)}km 운행 감소 효과"
-        )
-
-        st.divider()
-
-        st.subheader(
-            "🏅 친환경 점수 계산"
-        )
-
-        st.write(
-            f"식습관 점수 : {eating_score}"
-        )
-
-        st.write(
-            f"탄소 절감 점수 : {carbon_score}"
-        )
-
-        st.write(
-            f"실천 가능성 점수 : {practice_score}"
-        )
-
-        st.success(
-            f"총점 : {eco_score}"
-        )
-        
-        st.markdown(
-        f"""
-        # ❗
-
-        ## {result["icon"]}
-
-        최종 평가 확인 중...
-        """
-        )
-
-        time.sleep(1.2)
-        
-        st.header(rank)
-
-        st.divider()
-
-        st.subheader(
-            "🏆 업적"
-        )
-
-        if eco_score >= 95:
-
-            st.success(
-                "숲의 대수호자"
-            )
-
-        elif eco_score >= 80:
-
-            st.success(
-                "자연의 길잡이"
-            )
-
-        else:
-
-            st.success(
-                "새싹 모험가"
-            )
-
-        st.divider()
-
-        st.subheader(
-            "🎯 오늘의 퀘스트"
-        )
-
-        for mission in random.sample(
-            missions,
-            3
-        ):
-            st.checkbox(
-                mission
-            )
-
-        st.divider()
-
-        st.subheader(
-            "💡 실천 팁"
-        )
-
-        for tip in result["tips"]:
-
-            st.write(
-                "• " + tip
-            )
-
-        st.divider()
-
-        st.subheader(
-            "📄 결과 요약"
-        )
-
-        st.code(
-f"""
-이름 : {player['name']}
-나이 : {player['age']}
-
-직업 : {result['job']}
-칭호 : {result['title']}
-
+    st.code(
+        f'''
+이름 : {player["name"]}
 BMI : {round(bmi,1)}
-건강 상태 : {bmi_text(bmi)}
-
-친환경 점수 : {eco_score}
-랭크 : {rank}
-
+비만도 : {bmi_text(bmi)}
+직업 : {result["job"]}
 탄소 절감률 : {carbon_percent}%
-"""
-        )
-        st.subheader("🚧 향후 구현 예정 기능")
+심은 나무 수 : {trees}그루
+'''
+    )
 
-        st.write("• AI 맞춤 식단 생성")
-        st.write("• 운동 추천 시스템")
-        st.write("• 캐릭터 성장 시스템")
-        st.write("• 식단 기록 저장")
-        st.write("• 친구 랭킹 시스템")
-        st.write("• 로그인 기능")
-        st.write("• 더 많은 음식 종류")
+    st.info(
+        "※ 구현 예정 기능 : 웹사이트 레시피 연동, 직업별 일러스트 애니메이션, 업적 시스템 확장"
+    )
